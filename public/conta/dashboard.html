@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games | Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="conta">
+        <div class="navbar_conta">
+            <div class="navbar_secao" id="secao_msg">
+                <img src="../assets/icon/user_icon.webp" alt="icone-usuario">
+                <p>Seja bem-vindo, <span id="nome_personalizado">usuário</span>!</p>
+                <span>Esse é seu espaço personalizado para visualizar tendências e estatísticas sobre o mundo gamer. E, obviamente, se divertir um pouco!</span>
+            </div>
+            <div class="navbar_secao" id="secao_botao">
+                <div class="img_bt">
+                    <img src="../assets/icon/dash_icon.png">
+                    <button>Dashboard</button>
+                </div>
+                <div class="img_bt">
+                    <img src="../assets/icon/quiz_icon.png">
+                    <button>Quiz</button>
+                </div>
+                <div class="img_bt">
+                    <img src="../assets/icon/gear_icon.webp">
+                    <button>Conta</button>
+                </div>
+            </div>
+            <div class="navbar_secao" id="secao_sair">
+                <img src="../assets/icon/exit_icon.png" alt="icone-saída">
+                <button>Sair</button>
+            </div>
+        </div>
+
+        <div class="conteudo">
+            <div id="dash">
+                <h1>Overview</h1>
+            </div>
+    
+            <div id="quiz" style="display: none;">
+                <h1></h1>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    nome_personalizado.innerHTML = sessionStorage.NOME_USUARIO;
+</script>
