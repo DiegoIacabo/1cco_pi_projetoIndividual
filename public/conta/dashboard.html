@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games | Dashboard</title>
 
     <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div id="conta">
         <div class="navbar_conta">
             <div class="navbar_secao" id="secao_msg">
                 <img src="../assets/icon/user_icon.webp" alt="icone-usuario">
                 <p>Seja bem-vindo, <span id="nome_personalizado">usuário</span>!</p>
-                <span>Esse é seu espaço personalizado para visualizar tendências e estatísticas sobre o mundo gamer. E, obviamente, se divertir um pouco!</span>
+                <span>Esse é seu espaço personalizado para visualizar tendências e estatísticas sobre o mundo gamer. E,
+                    obviamente, se divertir um pouco!</span>
             </div>
             <div class="navbar_secao" id="secao_botao">
                 <div class="img_bt">
@@ -38,16 +43,227 @@
         <div class="conteudo">
             <div id="dash">
                 <h1>Overview</h1>
+                <canvas id="graph_plataforma"></canvas>
+                <canvas id="graph_tipoJogo"></canvas>
+                <canvas id="graph_genero"></canvas>
             </div>
-    
+
             <div id="quiz" style="display: none;">
                 <h1></h1>
             </div>
         </div>
     </div>
 </body>
+
 </html>
 
 <script>
     nome_personalizado.innerHTML = sessionStorage.NOME_USUARIO;
+
+    window.onload = obterDadosPlataforma();
+    window.onload = obterDadosTipoJogo();
+    window.onload = obterDadosGenero();
+
+    // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR PLATAFORMA
+    function obterDadosPlataforma() {
+
+        // Buscando dados do gráfico de Plataformas
+        fetch(`/graficos/dadosPlataforma`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarPlataforma(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarPlataforma(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let rotulosPlataforma = [];
+        let valoresPlataforma = [];
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            rotulosPlataforma.push(registro.Plataforma);
+            valoresPlataforma.push(registro.QuantidadeTotal);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(rotulosPlataforma)
+        console.log('Dados:')
+        console.log(valoresPlataforma)
+        console.log('----------------------------------------------')
+
+        const graficoPlataforma = document.getElementById('graph_plataforma');
+
+        new Chart(graficoPlataforma, {
+            type: 'bar',
+            data: {
+                labels: rotulosPlataforma,
+                datasets: [{
+                    label: 'Distribuição de Usuários por Plataforma Preferida',
+                    data: valoresPlataforma,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        })
+    }
+
+    // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR TIPO DE JOGO
+    function obterDadosTipoJogo() {
+
+        // Buscando dados do gráfico de Tipo de Jogo
+        fetch(`/graficos/dadosTipoJogo`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarTipoJogo(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarTipoJogo(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let rotulosTipoJogo = [];
+        let valoresTipoJogo = [];
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            rotulosTipoJogo.push(registro.TipoJogo);
+            valoresTipoJogo.push(registro.QuantidadeTotal);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(rotulosTipoJogo)
+        console.log('Dados:')
+        console.log(valoresTipoJogo)
+        console.log('----------------------------------------------')
+
+        const graficoTipoJogo = document.getElementById('graph_tipoJogo');
+
+        new Chart(graficoTipoJogo, {
+            type: 'bar',
+            data: {
+                labels: rotulosTipoJogo,
+                datasets: [{
+                    label: 'Distribuição de Usuários por Tipo de Jogo Favorito',
+                    data: valoresTipoJogo,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        })
+    }
+
+    // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR GÊNERO
+    function obterDadosGenero() {
+
+        // Buscando dados do gráfico de Tipo de Jogo
+        fetch(`/graficos/dadosGenero`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarGenero(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGenero(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let rotulosGenero = [];
+        let valoresGenero = [];
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            rotulosGenero.push(registro.genero);
+            valoresGenero.push(registro.QuantidadeTotal);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(rotulosGenero)
+        console.log('Dados:')
+        console.log(valoresGenero)
+        console.log('----------------------------------------------')
+
+        const graficoGenero = document.getElementById('graph_genero');
+
+        new Chart(graficoGenero, {
+            type: 'doughnut',
+            data: {
+                labels: rotulosGenero,
+                datasets: [{
+                    label: 'Distribuição de Usuários por Gênero',
+                    data: valoresGenero
+                }]
+            }
+        })
+    }
+
 </script>
