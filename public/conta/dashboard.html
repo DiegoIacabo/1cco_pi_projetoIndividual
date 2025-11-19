@@ -43,9 +43,29 @@
         <div class="conteudo">
             <div id="dash">
                 <h1>Overview</h1>
-                <canvas id="graph_plataforma"></canvas>
-                <canvas id="graph_tipoJogo"></canvas>
-                <canvas id="graph_genero"></canvas>
+                <div id="secao_kpis">
+                    <div class="kpi">
+                        <span class="rotulo_kpi" id="kpi_plataforma"></span>
+                    </div>
+                    <div class="kpi">
+                        <span class="rotulo_kpi" id="kpi_tipoJogo"></span>
+                    </div>
+                    <div class="kpi">
+                        <span class="rotulo_kpi" id="kpi_idade"></span>
+                    </div>
+                    <div class="kpi">
+                        <span class="rotulo_kpi" id="kpi_genero"></span>
+                    </div>
+                </div>
+                <div id="secao_graficos">
+                    <div id="barra">
+                        <canvas id="graph_plataforma"></canvas>
+                        <canvas id="graph_tipoJogo"></canvas>
+                    </div>
+                    <div id="pie">
+                        <canvas id="graph_genero"></canvas>
+                    </div>
+                </div>
             </div>
 
             <div id="quiz" style="display: none;">
@@ -63,6 +83,12 @@
     window.onload = obterDadosPlataforma();
     window.onload = obterDadosTipoJogo();
     window.onload = obterDadosGenero();
+    window.onload = obterPlataformaPreferida();
+    window.onload = obterTipoJogoFavorito();
+    window.onload = obterIdadeMedia();
+    window.onload = obterGeneroPredominante();
+
+    // ---------- GRÁFICOS ----------
 
     // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR PLATAFORMA
     function obterDadosPlataforma() {
@@ -139,7 +165,6 @@
     // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR TIPO DE JOGO
     function obterDadosTipoJogo() {
 
-        // Buscando dados do gráfico de Tipo de Jogo
         fetch(`/graficos/dadosTipoJogo`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -159,7 +184,6 @@
 
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
         let rotulosTipoJogo = [];
         let valoresTipoJogo = [];
 
@@ -167,7 +191,6 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
 
@@ -208,7 +231,6 @@
     // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR GÊNERO
     function obterDadosGenero() {
 
-        // Buscando dados do gráfico de Tipo de Jogo
         fetch(`/graficos/dadosGenero`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
@@ -228,7 +250,6 @@
 
         console.log('iniciando plotagem do gráfico...');
 
-        // Criando estrutura para plotar gráfico - labels
         let rotulosGenero = [];
         let valoresGenero = [];
 
@@ -236,7 +257,6 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
 
@@ -264,6 +284,77 @@
                 }]
             }
         })
+    }
+
+    // ---------- KPIS ----------
+
+    function obterPlataformaPreferida() {
+
+        fetch("/graficos/plataformaPreferida", { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    kpi_plataforma.innerHTML = `${resposta[0].nome}`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterTipoJogoFavorito() {
+
+        fetch("/graficos/tipoJogoFavorito", { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    kpi_tipoJogo.innerHTML = `${resposta[0].nome}`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterIdadeMedia() {
+
+        fetch("/graficos/idadeMedia", { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    kpi_idade.innerHTML = `${resposta[0].idadeMedia}`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterGeneroPredominante() {
+
+        fetch("/graficos/generoPredominante", { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    kpi_genero.innerHTML = `${resposta[0].genero}`;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
     }
 
 </script>

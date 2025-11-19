@@ -61,6 +61,9 @@ function buscarGeneroPredominante() {
     var instrucaoSql = `SELECT genero FROM usuario
     GROUP BY genero
     ORDER BY COUNT(idUsuario) DESC LIMIT 1;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 module.exports = {
