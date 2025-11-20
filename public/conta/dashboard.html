@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games | Dashboard</title>
+    <link rel="icon" href="../assets/icon/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/style.css">
 
@@ -16,27 +21,27 @@
         <div class="navbar_conta">
             <div class="navbar_secao" id="secao_msg">
                 <img src="../assets/icon/user_icon.webp" alt="icone-usuario">
-                <p>Seja bem-vindo, <span id="nome_personalizado">usuário</span>!</p>
-                <span>Esse é seu espaço personalizado para visualizar tendências e estatísticas sobre o mundo gamer. E,
+                <p>Seja bem-vindo(a), <span id="nome_personalizado">usuário</span>!</p>
+                <span id="welcome_msg">Esse é seu espaço personalizado para visualizar tendências e estatísticas sobre o mundo gamer. E,
                     obviamente, se divertir um pouco!</span>
             </div>
             <div class="navbar_secao" id="secao_botao">
                 <div class="img_bt">
-                    <img src="../assets/icon/dash_icon.png">
+                    <img src="../assets/icon/stats.png">
                     <button>Dashboard</button>
                 </div>
                 <div class="img_bt">
-                    <img src="../assets/icon/quiz_icon.png">
+                    <img src="../assets/icon/messages-question.png">
                     <button>Quiz</button>
                 </div>
                 <div class="img_bt">
-                    <img src="../assets/icon/gear_icon.webp">
+                    <img src="../assets/icon/settings.png">
                     <button>Conta</button>
                 </div>
             </div>
             <div class="navbar_secao" id="secao_sair">
                 <img src="../assets/icon/exit_icon.png" alt="icone-saída">
-                <button>Sair</button>
+                <a href="../login.html">Sair</a>
             </div>
         </div>
 
@@ -45,31 +50,50 @@
                 <h1>Overview</h1>
                 <div id="secao_kpis">
                     <div class="kpi">
+                        <p>Plataforma mais utilizada</p>
                         <span class="rotulo_kpi" id="kpi_plataforma"></span>
                     </div>
                     <div class="kpi">
+                        <p>Tipo de jogo favorito</p>
                         <span class="rotulo_kpi" id="kpi_tipoJogo"></span>
                     </div>
                     <div class="kpi">
+                        <p>Idade média dos jogadores</p>
                         <span class="rotulo_kpi" id="kpi_idade"></span>
                     </div>
                     <div class="kpi">
+                        <p>Gênero predominante</p>
                         <span class="rotulo_kpi" id="kpi_genero"></span>
                     </div>
                 </div>
                 <div id="secao_graficos">
-                    <div id="barra">
-                        <canvas id="graph_plataforma"></canvas>
-                        <canvas id="graph_tipoJogo"></canvas>
+                    <div id="primeira_secao">
+                        <div id="barra_plataforma">
+                            <p>Distribuição de Usuários por Plataforma Preferida</p>
+                            <canvas id="graph_plataforma"></canvas>
+                        </div>
+                        <div id="barra_idade">
+                            <p>Distribuição de Usuários por Faixa Etária</p>
+                            <canvas id="graph_idade"></canvas>
+                        </div>
                     </div>
-                    <div id="pie">
-                        <canvas id="graph_genero"></canvas>
+                    <div id="segunda_secao">
+                        <div id="barra_tipoJogo">
+                            <p>Distribuição de Usuários por Tipo de Jogo Favorito</p>
+                            <canvas id="graph_tipoJogo"></canvas>
+                        </div>
+                        <div id="pizza_genero">
+                            <p>Distribuição de Usuários por Gênero</p>
+                            <div id="pie">
+                                <canvas id="graph_genero"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div id="quiz" style="display: none;">
-                <h1></h1>
+                <h1>Teste seu conhecimento</h1>
             </div>
         </div>
     </div>
@@ -83,6 +107,7 @@
     window.onload = obterDadosPlataforma();
     window.onload = obterDadosTipoJogo();
     window.onload = obterDadosGenero();
+    window.onload = obterDadosIdade();
     window.onload = obterPlataformaPreferida();
     window.onload = obterTipoJogoFavorito();
     window.onload = obterIdadeMedia();
@@ -147,15 +172,15 @@
             data: {
                 labels: rotulosPlataforma,
                 datasets: [{
-                    label: 'Distribuição de Usuários por Plataforma Preferida',
+                    label: 'Quantidade de Usuários',
                     data: valoresPlataforma,
-                    borderWidth: 1
+                    backgroundColor: '#D349C7'
                 }]
             },
             options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
@@ -213,15 +238,16 @@
             data: {
                 labels: rotulosTipoJogo,
                 datasets: [{
-                    label: 'Distribuição de Usuários por Tipo de Jogo Favorito',
+                    label: 'Quantidade de Usuários',
                     data: valoresTipoJogo,
-                    borderWidth: 1
+                    backgroundColor: '#38023B'
                 }]
             },
             options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+                indexAxis: 'y',
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
@@ -275,13 +301,87 @@
         const graficoGenero = document.getElementById('graph_genero');
 
         new Chart(graficoGenero, {
-            type: 'doughnut',
+            type: 'pie',
             data: {
                 labels: rotulosGenero,
                 datasets: [{
-                    label: 'Distribuição de Usuários por Gênero',
-                    data: valoresGenero
+                    label: 'Quantidade de Usuários',
+                    data: valoresGenero,
+                    backgroundColor: ['#4D0D57', '#D349C7', '#F0A6EB']
                 }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        })
+    }
+
+    // CRIANDO O GRÁFICO DE DISTRIBUIÇÃO POR FAIXA ETÁRIA
+    function obterDadosIdade() {
+
+        fetch(`/graficos/dadosIdade`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    plotarIdade(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarIdade(resposta) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        let rotulosIdade = [];
+        let valoresIdade = [];
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            rotulosIdade.push(registro.FaixaEtaria);
+            valoresIdade.push(registro.QuantidadeTotal);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(rotulosIdade)
+        console.log('Dados:')
+        console.log(valoresIdade)
+        console.log('----------------------------------------------')
+
+        const graficoIdade = document.getElementById('graph_idade');
+
+        new Chart(graficoIdade, {
+            type: 'bar',
+            data: {
+                labels: rotulosIdade,
+                datasets: [{
+                    label: 'Quantidade de Usuários',
+                    data: valoresIdade,
+                    backgroundColor: '#38023B'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
             }
         })
     }
@@ -328,7 +428,7 @@
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    kpi_idade.innerHTML = `${resposta[0].idadeMedia}`;
+                    kpi_idade.innerHTML = `${resposta[0].idadeMedia} anos`;
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');

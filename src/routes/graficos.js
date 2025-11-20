@@ -15,6 +15,10 @@ router.get("/dadosGenero", function (req, res){
     graficoController.buscarDadosGenero(req, res);
 })
 
+router.get("/dadosIdade", function (req, res){
+    graficoController.buscarDadosIdade(req, res);
+})
+
 router.get("/plataformaPreferida", function (req, res) {
     graficoController.buscarPlataformaPreferida(req, res);
 });

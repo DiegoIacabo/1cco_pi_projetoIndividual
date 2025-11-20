@@ -29,6 +29,22 @@ function buscarDadosGenero() {
     return database.executar(instrucaoSql);
 }
 
+function buscarDadosIdade() {
+    var instrucaoSql = `SELECT
+	    CASE
+		    WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 18 THEN '<18'
+            WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 31 THEN '18-30'
+            WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 46 THEN '30-45'
+            ELSE '>45'
+	    END AS FaixaEtaria,
+        COUNT(idUsuario) AS QuantidadeTotal
+    FROM usuario
+    GROUP BY faixaEtaria;`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function buscarPlataformaPreferida() {
     var instrucaoSql = `SELECT p.nome FROM usuario JOIN plataforma AS p
 	ON fkPlataforma = idPlataforma
@@ -70,6 +86,7 @@ module.exports = {
     buscarDadosPlataforma,
     buscarDadosTipoJogo,
     buscarDadosGenero,
+    buscarDadosIdade,
     buscarPlataformaPreferida,
     buscarTipoJogoPreferido,
     buscarIdadeMedia,
