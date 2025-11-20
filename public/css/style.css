@@ -7,6 +7,8 @@ body {
     padding: 0;
 }
 
+
+/* Tela de Cadastro e Login */
 .header {
     width: 100%;
     border-bottom: 4px solid #F122D0;
@@ -95,4 +97,188 @@ button {
 .footer {
     background-color: white;
     height: 60px;
+}
+
+
+/* Tela da Dashboard */
+#conta {
+    display: flex;
+    width: 100%;
+    height: 700px;
+    /* background-color: #F0A6EB; */
+}
+
+.navbar_conta {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    border-right: solid;
+    border-width: 3px;
+    background-color: #f2c9ef;
+}
+
+.navbar_conta img {
+    height: 20px;
+    width: 20px;
+}
+
+#secao_msg p {
+    font-size: 20px;
+    margin: 0;
+    height: 30%;
+}
+
+#welcome_msg {
+    display: block;
+    text-align: justify;
+}
+
+#secao_msg img {
+    height: 60px;
+    width: 60px;
+}
+
+#secao_botao {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+}
+
+#secao_botao button {
+    margin: 0;
+    margin-left: 5px;
+    height: 45%;
+    width: 40%;
+    background-color: #000;
+    color: #f2c9ef;
+}
+
+.img_bt {
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+
+#secao_sair {
+    display: flex;
+    align-items: end;
+}
+
+#secao_sair a {
+    margin-left: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.conteudo {
+    width: 80%;
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#dash {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#dash h1 {
+    color: black;
+}
+
+#secao_kpis {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.kpi {
+    background-color: #C2C1C2;
+    width: 20%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 3px;
+    border-radius: 5px;
+}
+
+.kpi p {
+    margin: 0;
+    font-size: 15px;
+    color: rgb(54, 54, 54);
+}
+
+.kpi span {
+    font-size: 20px;
+    font-weight: bolder;
+    margin: auto;
+}
+
+#secao_graficos {
+    /* background-color: #00935d; */
+    width: 100%;
+    height: 70%;
+    display: flex;
+}
+
+#secao_graficos p {
+    margin: 0;
+}
+
+#primeira_secao {
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+    margin-top: 30px;
+}
+
+#barra_plataforma {
+    width: 100%;
+    height: 50%;
+    margin-bottom: 20px;
+    /* border: solid black; */
+    /* background-color: #F122D0; */
+}
+
+#barra_idade {
+    height: 50%;
+    width: 100%;
+    /* background-color: #C2C1C2; */
+}
+
+#segunda_secao {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 40%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+
+#barra_tipoJogo {
+    width: 100%;
+    height: 50%;
+    /* background-color: yellow; */
+}
+
+#pizza_genero {
+    height: 50%;
+    margin-top: 22px;
+    /* background-color: #38023B; */
+}
+
+#pie {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
