@@ -32,7 +32,7 @@
                 </div>
                 <div class="img_bt">
                     <img src="../assets/icon/quiz_icon.png">
-                    <button>Quiz</button>
+                    <button onclick="exibirQuiz()">Quiz</button>
                 </div>
                 <div class="img_bt">
                     <img src="../assets/icon/settings_icon.png">
@@ -90,10 +90,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="quiz" style="display: none;">
-                <h1>Teste seu conhecimento</h1>
             </div>
         </div>
     </div>
@@ -240,7 +236,7 @@
                 datasets: [{
                     label: 'Quantidade de Usuários',
                     data: valoresTipoJogo,
-                    backgroundColor: '#38023B'
+                    backgroundColor: '#4D0D57'
                 }]
             },
             options: {
@@ -373,7 +369,7 @@
                 datasets: [{
                     label: 'Quantidade de Usuários',
                     data: valoresIdade,
-                    backgroundColor: '#38023B'
+                    backgroundColor: '#4D0D57'
                 }]
             },
             options: {
@@ -457,4 +453,8 @@
 
     }
 
+    // ---------- BOTÕES ----------    
+    function exibirQuiz() {
+        window.location = "quiz.html";
+    }
 </script>
