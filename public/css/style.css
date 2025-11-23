@@ -8,7 +8,7 @@ body {
 }
 
 
-/* Tela da Index */
+/* TELA INDEX */
 #index_banner {
     background-image: url("../assets/imgs/bg-img.jpg");
     background-size: cover;
@@ -41,12 +41,14 @@ body {
 
 #card_play span {
     font-size: 45px;
+    font-weight: bolder;
 }
 
 #card_play button {
     margin: 0;
     height: 20%;
     font-size: 20px;
+    font-weight: bolder;
 }
 
 #card_play button:hover {
@@ -54,7 +56,8 @@ body {
     color: white;
 } 
 
-/* Tela de Cadastro e Login */
+
+/* HEADER */
 .header {
     width: 100%;
     border-bottom: 4px solid #F122D0;
@@ -72,6 +75,127 @@ ul {
     color: black;
 }
 
+/* TELA HOME */
+#background_home {
+    background-image: url("../assets/imgs/bg_home.webp");
+    width: 100%;
+    height: 630px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 4px solid #F122D0;
+}
+
+#background_home div {
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(0.6) blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#background_home span {
+    color: white;
+    font-size: 60px;
+    font-weight: bolder;
+}
+
+/* Sobre */
+#secao_sobre {
+    /* background-color: aqua; */
+    display: flex;
+    height: 450px;
+    width: 100%;
+}
+
+#texto_sobre {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 60px;
+}
+
+#texto_sobre p {
+    text-align: center;
+}
+
+#img_sobre {
+    background-image: url('../assets/imgs/img_sobre.png');
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    margin: 60px;
+}
+
+#img_sobre div {
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(0.6) blur(1px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#img_sobre span {
+    color: white;
+    font-size: 60px;
+    text-align: center;
+}
+
+#img_sobre .dados {
+    color: white;
+    font-size: 35px;
+    display: block;
+    width: 50%;
+    text-align: center;
+}
+
+/* Plataforma */
+#secao_plataforma {
+    /* background-color: #F122D0; */
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#imgs_plataformas {
+    /* background-color: aqua; */
+    display: flex;
+    width: 100%;
+    height: 80%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.imgs {
+    background-color: black;
+    width: 20%;
+    height: 90%;
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+}
+
+#img_console {
+    background-image: url('../assets/imgs/img_console.avif');
+}
+
+#img_computador {
+    background-image: url('../assets/imgs/img_notebook.webp');
+}
+
+#img_celular {
+    background-image: url('../assets/imgs/img_celular.avif');
+}
+
+
+/* TELA CADASTRO/LOGIN */
+
 .banner {
     width: 100%;
     height: 750px;
@@ -87,7 +211,7 @@ ul {
     height: 590px;
 }
 
-h1 {
+.titulo_login {
     color: white;
 }
 
@@ -146,7 +270,7 @@ button {
 }
 
 
-/* Menu Lateral */
+/* MENU LATERAL */
 #conta {
     display: flex;
     width: 100%;
@@ -231,7 +355,7 @@ button {
 }
 
 
-/* Tela da Dashboard */
+/* TELA DASHBOARD */
 .conteudo {
     width: 80%;
     height: 100%;
