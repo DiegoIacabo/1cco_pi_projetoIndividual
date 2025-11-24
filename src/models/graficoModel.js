@@ -32,10 +32,10 @@ function buscarDadosGenero() {
 function buscarDadosIdade() {
     var instrucaoSql = `SELECT
 	    CASE
-		    WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 18 THEN '<18'
-            WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 31 THEN '18-30'
-            WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 46 THEN '30-45'
-            ELSE '>45'
+		    WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 18 THEN '<18 anos'
+            WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 31 THEN '18-30 anos'
+            WHEN TIMESTAMPDIFF(YEAR, nascimento, now()) < 46 THEN '30-45 anos'
+            ELSE '>45 anos'
 	    END AS FaixaEtaria,
         COUNT(idUsuario) AS QuantidadeTotal
     FROM usuario
