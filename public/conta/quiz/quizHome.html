@@ -5,41 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Games | Quiz</title>
-    <link rel="icon" href="../assets/icon/icon.png">
+    <link rel="icon" href="../../assets/icon/icon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 
 <body>
     <div id="conta">
         <div class="navbar_conta">
             <div class="navbar_secao" id="secao_msg">
-                <img src="../assets/icon/user_icon.webp" alt="icone-usuario">
+                <img src="../../assets/icon/user_icon.webp" alt="icone-usuario">
                 <p>Seja bem-vindo(a), <span id="nome_personalizado">usuário</span>!</p>
                 <span id="welcome_msg">Esse é seu espaço personalizado para visualizar tendências e estatísticas sobre o mundo gamer. E,
                     obviamente, se divertir um pouco!</span>
             </div>
             <div class="navbar_secao" id="secao_botao">
                 <div class="img_bt">
-                    <img src="../assets/icon/dash_icon.png">
+                    <img src="../../assets/icon/dash_icon.png">
                     <button onclick="exibirDash()">Dashboard</button>
                 </div>
                 <div class="img_bt">
-                    <img src="../assets/icon/quiz_icon.png">
+                    <img src="../../assets/icon/quiz_icon.png">
                     <button>Quiz</button>
                 </div>
                 <div class="img_bt">
-                    <img src="../assets/icon/settings_icon.png">
+                    <img src="../../assets/icon/settings_icon.png">
                     <button>Conta</button>
                 </div>
             </div>
             <div class="navbar_secao" id="secao_sair">
-                <img src="../assets/icon/exit_icon.png" alt="icone-saída">
-                <a href="../login.html">Sair</a>
+                <img src="../../assets/icon/exit_icon.png" alt="icone-saída">
+                <a href="../../login.html">Sair</a>
             </div>
         </div>
 
@@ -48,7 +48,8 @@
                 <h1>Teste seu conhecimento!</h1>
                 <div id="quiz_boxes">
                     <div class="quiz_box" id="quiz_geral">
-                        <a href="../index.html">Quiz Geral</a>
+                        <a href="../../index.html">Quiz Geral</a>
+                        <!-- <button>Quiz Geral</button> -->
                     </div>
                     <div class="quiz_box" id="quiz_cs">
                         <!-- <a href="">Quiz Counter-Strike</a> -->
@@ -67,7 +68,9 @@
 </body>
 
 <script>
+    nome_personalizado.innerHTML = sessionStorage.NOME_USUARIO;
+
     function exibirDash() {
-        window.location = "dashboard.html";
+        window.location = "../dashboard.html";
     }
 </script>
