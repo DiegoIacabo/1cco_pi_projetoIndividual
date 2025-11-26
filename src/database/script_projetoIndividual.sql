@@ -37,7 +37,11 @@ create table quiz (
 create table questao (
 	idQuestao int primary key auto_increment,
     pergunta varchar (200),
-    resposta varchar (45),
+    alternativaA varchar (45),
+    alternativaB varchar (45),
+    alternativaC varchar (45),
+    alternativaD varchar (45),
+    alternativaCorreta varchar (45),
     fkQuiz int,
     constraint fkQuizQuestao
 		foreign key (fkQuiz)
@@ -69,3 +73,14 @@ insert into tipoJogo values
     (default, 'RPG', 'O jogador assume um personagem, evolui habilidades e toma decisões que influenciam a história e o mundo do jogo.'),
     (default, 'MOBA', 'Times competem em uma arena, cada jogador controlando um personagem único para destruir a base inimiga.'),
     (default, 'Survival', 'Jogador precisa sobreviver com poucos recursos, enfrentando ameaças, explorando o ambiente e gerenciando necessidades básicas.');
+    
+insert into quiz values
+	(default, 'Quiz Geral');
+    
+insert into questao values
+	(default, 'Qual foi o console mais vendido da história?', 'Xbox 360', 'PlayStation 2', 'Nintendo Switch', 'Atari 2600', 'alternativaB', 1),
+	(default, 'Desde 2014, o The Game Awards elege o melhor jogo do ano (GOTY). Qual dos seguintes jogos NÃO ganhou esse prêmio?', 'Uncharted 4: A Thief`s End', 'The Last of Us Part II', 'It Takes Two', 'Astro Bot', 'alternativaA', 1),
+	(default, 'Alguns jogos, por diversas razões, estão presentes em apenas uma plataforma. Escolha a opção que NÃO representa, originalmente, uma franquia exclusiva.', 'God of War', 'Forza Horizon', 'Zelda', 'Assassin`s Creed', 'alternativaD', 1),
+	(default, 'O jogo League of Legends pertence a qual gênero?', 'FPS', 'Survival', 'RPG', 'MOBA', 'alternativaD', 1),
+	(default, 'Assinale a alternativa que não se encaixa com as outras.', 'Rainbow Six Siege', 'Call of Duty: Warzone', 'Fortnite', 'PUBG', 'alternativaA', 1),
+	(default, 'Escolha a opção do estúdio que NÃO desenvolve jogos mobile.', 'Supercell', 'Garena', 'Naughty Dog', 'King', 'alternativaC', 1);
