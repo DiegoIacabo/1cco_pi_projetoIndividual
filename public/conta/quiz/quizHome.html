@@ -48,16 +48,16 @@
                 <h1>Teste seu conhecimento!</h1>
                 <div id="quiz_boxes">
                     <div class="quiz_box" id="quiz_geral">
-                        <a href="../../index.html">Quiz Geral</a>
-                        <!-- <button>Quiz Geral</button> -->
+                        <!-- <a href="../../index.html">Quiz Geral</a> -->
+                        <button onclick="iniciarQuiz(1)">Quiz Geral</button>
                     </div>
                     <div class="quiz_box" id="quiz_cs">
                         <!-- <a href="">Quiz Counter-Strike</a> -->
-                        <button>Quiz Counter-Strike</button>
+                        <button onclick="iniciarQuiz(2)">Quiz Counter-Strike</button>
                     </div>
                     <div class="quiz_box" id="quiz_r6">
                         <!-- <a href="">Quiz Rainbow Six</a> -->
-                        <button>Quiz Rainbow Six</button>
+                        <button onclick="iniciarQuiz(3)">Quiz Rainbow Six</button>
                     </div>
                 </div>
             </div>
@@ -72,5 +72,11 @@
 
     function exibirDash() {
         window.location = "../dashboard.html";
+    }
+
+    function iniciarQuiz(index) {
+        sessionStorage.ID_QUIZ = index;
+
+        window.location = "./quizJogo.html";
     }
 </script>
