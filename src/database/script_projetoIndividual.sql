@@ -42,6 +42,7 @@ create table questao (
     alternativaC varchar (45),
     alternativaD varchar (45),
     alternativaCorreta varchar (45),
+    peso int,
     fkQuiz int,
     constraint fkQuizQuestao
 		foreign key (fkQuiz)
@@ -49,7 +50,7 @@ create table questao (
 );
 
 create table tentativa (
-	idTentativa int,
+	idTentativa int auto_increment,
     fkQuiz int,
     constraint fkQuizTentativa
 		foreign key (fkQuiz)
@@ -59,7 +60,8 @@ create table tentativa (
 		foreign key (fkUsuario)
 			references usuario(idUsuario),
 	constraint pkComposta
-		primary key (idTentativa, fkQuiz, fkUsuario)
+		primary key (idTentativa, fkQuiz, fkUsuario),
+	pontuacao int
 );
 
 insert into plataforma values
@@ -78,9 +80,9 @@ insert into quiz values
 	(default, 'Quiz Geral');
     
 insert into questao values
-	(default, 'Qual foi o console mais vendido da história?', 'Xbox 360', 'PlayStation 2', 'Nintendo Switch', 'Atari 2600', 'alternativaB', 1),
-	(default, 'Desde 2014, o The Game Awards elege o melhor jogo do ano (GOTY). Qual dos seguintes jogos NÃO ganhou esse prêmio?', 'Uncharted 4: A Thief`s End', 'The Last of Us Part II', 'It Takes Two', 'Astro Bot', 'alternativaA', 1),
-	(default, 'Alguns jogos, por diversas razões, estão presentes em apenas uma plataforma. Escolha a opção que NÃO representa, originalmente, uma franquia exclusiva.', 'God of War', 'Forza Horizon', 'Zelda', 'Assassin`s Creed', 'alternativaD', 1),
-	(default, 'O jogo League of Legends pertence a qual gênero?', 'FPS', 'Survival', 'RPG', 'MOBA', 'alternativaD', 1),
-	(default, 'Assinale a alternativa que não se encaixa com as outras.', 'Rainbow Six Siege', 'Call of Duty: Warzone', 'Fortnite', 'PUBG', 'alternativaA', 1),
-	(default, 'Escolha a opção do estúdio que NÃO desenvolve jogos mobile.', 'Supercell', 'Garena', 'Naughty Dog', 'King', 'alternativaC', 1);
+	(default, 'Qual foi o console mais vendido da história?', 'Xbox 360', 'PlayStation 2', 'Nintendo Switch', 'Atari 2600', 'alternativaB', 1, 1),
+	(default, 'Desde 2014, o The Game Awards elege o melhor jogo do ano (GOTY). Qual dos seguintes jogos NÃO ganhou esse prêmio?', 'Uncharted 4: A Thief`s End', 'The Last of Us Part II', 'It Takes Two', 'Astro Bot', 'alternativaA', 3, 1),
+	(default, 'Alguns jogos, por diversas razões, estão presentes em apenas uma plataforma. Escolha a opção que NÃO representa, originalmente, uma franquia exclusiva.', 'God of War', 'Forza Horizon', 'Zelda', 'Assassin`s Creed', 'alternativaD', 1, 1),
+	(default, 'O jogo League of Legends pertence a qual gênero?', 'FPS', 'Survival', 'RPG', 'MOBA', 'alternativaD', 1, 1),
+	(default, 'Assinale a alternativa que não se encaixa com as outras.', 'Rainbow Six Siege', 'Call of Duty: Warzone', 'Fortnite', 'PUBG', 'alternativaA', 2, 1),
+	(default, 'Escolha a opção do estúdio que NÃO desenvolve jogos mobile.', 'Supercell', 'Garena', 'Naughty Dog', 'King', 'alternativaC', 2, 1);
