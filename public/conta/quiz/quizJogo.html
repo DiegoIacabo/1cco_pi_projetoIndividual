@@ -68,7 +68,8 @@
                     <div id="botoes">
                         <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
                         <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                        <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled style="display: none;">Tentar novamente</button>
+                        <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled
+                            style="display: none;">Tentar novamente</button>
                         <button onclick="sair()" id="btnSair" style="display: none;">Sair</button>
                     </div>
 
@@ -83,18 +84,17 @@
 <script>
     var idQuiz = sessionStorage.ID_QUIZ;
     window.onload = obterQuestoesQuiz();
-    
+
     var listaDeQuestoes = [];
-    
+
     let numeroDaQuestaoAtual = 0
     let pontuacaoFinal = 0
     let tentativaIncorreta = 0
     let certas = 0
     let erradas = 0
     let quantidadeDeQuestoes;
-    
+
     function obterQuestoesQuiz() {
-        console.log(idQuiz);
 
         fetch(`/quiz/questoes/${idQuiz}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -138,7 +138,7 @@
         numeroDaQuestaoAtual = index
         console.log("questaoAtual")
         console.log(questaoAtual)
-        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1
         document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
         document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
         document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
@@ -220,7 +220,7 @@
         options.forEach((option) => {
             if (option.checked === true && option.value === respostaQuestaoAtual) {
                 document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
-                pontuacaoFinal++
+                pontuacaoFinal += 1 * questaoAtual.peso;
                 certas++
                 numeroDaQuestaoAtual++
             } else if (option.checked && option.value !== respostaQuestaoAtual) {
@@ -253,7 +253,7 @@
     function finalizarJogo() {
         let textoParaMensagemFinal = null
         let classComCoresParaMensagemFinal = null
-        const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+        const porcentagemFinalDeAcertos = certas / quantidadeDeQuestoes
 
         if (porcentagemFinalDeAcertos <= 0.3) {
             textoParaMensagemFinal = "Parece que você não estudou..."
@@ -265,8 +265,8 @@
             textoParaMensagemFinal = "Uau, parabéns!"
         }
 
-        textoParaMensagemFinal += `<br> Você acertou ${certas} perguntas e errou ${erradas}!
-        Seu resultado foi de ${Math.round((porcentagemFinalDeAcertos) * 100)}% das questões certas.`;
+        textoParaMensagemFinal += `<br> Você acertou ${certas} perguntas e errou ${erradas} (${Math.round((porcentagemFinalDeAcertos) * 100)}%)!
+        Sua pontuação foi de ${pontuacaoFinal}.`;
 
         infoQuestao.style.display = "none";
         perguntaDaQuestaoAtual.style.display = "none";
@@ -274,6 +274,7 @@
         opcoes.style.display = "none";
 
         msgFinal.innerHTML = textoParaMensagemFinal;
+        mandarPontuacao(pontuacaoFinal);
 
         document.getElementById('jogo').classList.add("text-new-gray")
 
@@ -284,5 +285,34 @@
         btnTentarNovamente.style.display = "block";
         btnTentarNovamente.disabled = false;
         btnSair.style.display = "block";
+    }
+
+    function mandarPontuacao(pontuacao) {
+
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+            fetch(`/quiz/enviarPontuacao/${idQuiz}/${idUsuario}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    pontuacaoServer: pontuacao
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        console.log("Pontuação enviada com sucesso!");
+                    } else {
+                        throw "Houve um erro ao tentar enviar a pontuação!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+        return false;
     }
 </script>

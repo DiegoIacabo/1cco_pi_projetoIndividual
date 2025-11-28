@@ -19,6 +19,42 @@ function buscarQuestoesQuiz(req, res) {
     });
 }
 
+function enviarPontuacao(req, res) {
+
+    console.log('Enviando pontuação para o Banco de Dados');
+
+    var idQuiz = req.params.idQuiz;
+    var idUsuario = req.params.idUsuario;
+    var pontuacao = req.body.pontuacaoServer;
+
+    if (idQuiz == undefined) {
+        res.status(400).send('O id do Quiz está undefined!');
+    } else if (idUsuario == undefined) {
+        res.status(400).send('O id do Usuário está undefined!');
+    } else if (pontuacao == undefined){
+        res.status(400).send('A pontuação está undefined!');
+    } else {
+        
+        quizModel.enviarPontuacao(idQuiz, idUsuario, pontuacao)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao enviar a pontuação! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
 module.exports = {
-    buscarQuestoesQuiz
+    buscarQuestoesQuiz,
+    enviarPontuacao
 }
