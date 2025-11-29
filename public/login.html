@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
 
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <div class="header">
         <ul>
@@ -23,7 +25,12 @@
         </ul>
     </div>
 
-     <div class="banner" id="login">
+    <div class="banner" id="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
         <h1 class="titulo_login">LOGIN</h1>
         <div class="container">
             <p>E-mail</p>
@@ -39,6 +46,7 @@
         <p>Um projeto de Diego Iacabo</p>
     </div>
 </body>
+
 </html>
 
 <script>
@@ -49,7 +57,7 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            alert("(Mensagem de erro para todos os campos em branco)");
+            exibirMensagem("Mensagem de erro para todos os campos em branco");
             finalizarAguardar();
             return false;
         }
@@ -89,7 +97,7 @@
 
                 console.log("Houve um erro ao tentar realizar o login!");
 
-                alert("E-mail ou senha inválidos!");
+                exibirMensagem("E-mail ou senha inválidos!");
 
                 resposta.text().then(texto => {
                     console.error(texto);
@@ -102,6 +110,16 @@
         })
 
         return false;
+    }
+
+    function exibirMensagem(msg) {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = msg;
+        setInterval(sumirMensagem, 5000);
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
     }
 
 </script>

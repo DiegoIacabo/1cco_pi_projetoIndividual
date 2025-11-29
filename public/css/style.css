@@ -280,6 +280,28 @@ ul {
     height: 590px;
 }
 
+.alerta_erro{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: #F122D0 3px solid;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro{
+  font-weight: 500;
+  font-size: 20px;
+}
+
 .titulo_login {
     color: white;
 }
@@ -317,6 +339,7 @@ button {
     border-radius: 5px;
     background-color: white;
     border-style: none;
+    cursor: pointer;
 }
 
 #bt_cadastrar {
